@@ -1,0 +1,139 @@
+<mvc:View
+    controllerName="com.rt.invoiceprocessor.controller.process_invoice"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <SplitApp id="splitApp" mode="ShowHideMode">
+        <!-- Left Column -->
+        <masterPages>
+            <Page title="Documents" showHeader="true">
+                <content>
+                    <Table id="documentsTable"
+                        items="{/InvoiceDocuments}"
+                        mode="SingleSelect"
+                        selectionChange=".onSelectionChange">
+                        <columns>
+                            <Column width="3rem">
+                                <CheckBox select=".onSelectAll"/>
+                            </Column>
+                            <Column>
+                                <Text text="File Name"/>
+                            </Column>
+                            <Column>
+                                <Text text="Status"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <CheckBox selected="{selected}"/>
+                                    <Text text="{fileName}"/>
+                                    <Text text="{status}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </content>
+            </Page>
+        </masterPages>
+
+        <!-- Right Content Area -->
+        <detailPages>
+            <Page id="detailPage" showHeader="false">
+                <content>
+                    <HBox>
+                        <!-- Middle Column - PDF Upload/View -->
+                        <VBox width="60%" class="sapUiSmallMargin">
+                            <!-- Default Upload Section -->
+                            <VBox id="uploadSection" visible="true" busy="{viewModel>/busy}">
+                                <Title text="Upload Invoice for Processing" class="sapUiSmallMarginBottom"/>
+                                <u:FileUploader
+                                    id="fileUploader"
+                                    name="myFileUpload"
+                                    tooltip="Upload your invoice file"
+                                    change="handleFileChange"
+                                    fileType="pdf"
+                                    buttonText="Choose Invoice PDF"
+                                    style="Emphasized"
+                                    class="sapUiSmallMarginBottom"/>
+                                <Button 
+                                    text="Upload"
+                                    press=".onUploadPress"
+                                    type="Emphasized"
+                                    enabled="{= !!${viewModel>/selectedFile}}"
+                                    class="sapUiSmallMarginBottom"/>
+                                <Text
+                                    text="{viewModel>/selectedFileName}"
+                                    visible="{= !!${viewModel>/selectedFileName}}"/>
+                            </VBox>
+                            <VBox>
+                            <Button
+                                text="Process with AI"
+                                type="Emphasized"
+                                press=".onProcessWithAI"
+                                busyIndicatorDelay="0"
+                                class="sapUiSmallMarginTop"
+                            />
+                             <core:HTML id="idFrame"/>
+                 <!--           <PDFViewer
+                                id="pdfViewer"
+                                visible="{viewModel>/isDocumentSelected}"
+                                height="600px"
+                                source="{viewModel>/fileContent}">
+                            </PDFViewer> -->
+                            </VBox>
+                            <!-- Iframe for previewing PDF 
+                                        <html:iframe
+                                            id="pdfIframe"
+                                            style="width: 100%; height: 600px; border: none;">
+                                        </html:iframe> -->
+                        </VBox>
+
+                        <!-- Right Column - Form -->
+                        <VBox width="40%" class="sapUiSmallMargin">
+                            <f:SimpleForm
+                                id="invoiceForm"
+                                editable="true"
+                                layout="ResponsiveGridLayout">
+                                <f:content>
+                                    <Label text="Invoice Number"/>
+                                    <Input value="{invoiceNumber}"/>
+                                    <Label text="Due Date"/>
+                                    <DatePicker value="{dueDate}"/>
+                                    <Label text="Gross Amount"/>
+                                    <Input value="{grossAmount}"/>
+                                    <Label text="Net Amount"/>
+                                    <Input value="{netAmount}"/>
+                                    <Label text="Payment Terms"/>
+                                    <Input value="{paymentTerms}"/>
+                                    <Label text="Purchase Order"/>
+                                    <Input value="{purchaseOrder}"/>
+                                    <Label text="Buyer Name"/>
+                                    <Input value="{buyerName}"/>
+                                    <Label text="Buyer Address"/>
+                                    <Input value="{buyerAddress}"/>
+                                    <Label text="Receiver City"/>
+                                    <Input value="{receiverCity}"/>
+                                    <Label text="Receiver District"/>
+                                    <Input value="{receiverDistrict}"/>
+                                    <Label text="House Number"/>
+                                    <Input value="{receiverHouseNumber}"/>
+                                    <Label text="Postal Code"/>
+                                    <Input value="{receiverPostalCode}"/>
+                                    <Label text="State"/>
+                                    <Input value="{receiverState}"/>
+                                    <Label text="Street"/>
+                                    <Input value="{receiverStreet}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </VBox>
+                    </HBox>
+                </content>
+            </Page>
+        </detailPages>
+    </SplitApp>
+</mvc:View>

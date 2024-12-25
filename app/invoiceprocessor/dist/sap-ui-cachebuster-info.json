@@ -1,0 +1,22 @@
+{
+  "Component-preload.js": 1734582894116,
+  "Component.js": 1733722497315,
+  "controller/process_invoice.controller.js": 1734582797150,
+  "controller/App.controller.js": 1732986997415,
+  "manifest.json": 1734582893890,
+  "model/models.js": 1732986997399,
+  "Component-dbg.js": 1733722497315,
+  "Component.js.map": 1734582894025,
+  "controller/process_invoice-dbg.controller.js": 1734582797150,
+  "controller/process_invoice.controller.js.map": 1734582894043,
+  "controller/App-dbg.controller.js": 1732986997415,
+  "controller/App.controller.js.map": 1734582894023,
+  "model/models-dbg.js": 1732986997399,
+  "model/models.js.map": 1734582894024,
+  "i18n/i18n_en_US.properties": 1733693299893,
+  "Component-preload.js.map": 1734582894116,
+  "view/process_invoice.view.xml": 1734366367620,
+  "view/App.view.xml": 1732986997415,
+  "css/style.css": 1732986997415,
+  "index.html": 1733760747139
+}

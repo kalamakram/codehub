@@ -1,0 +1,59 @@
+{
+  "name": "invoice_process",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap-cloud-sdk/http-client": "^3.24.0",
+    "@sap/cds": "^8",
+    "@sap/xssec": "4.2.4",
+    "axios": "^1.7.9",
+    "express": "^4",
+    "hdb": "^0.19.11",
+    "passport": "0.7.0"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.7.0",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
+    "@sap/hdi-deploy": "4.9.5",
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-invoiceprocessor": "cds watch --open invoiceprocessor/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy invoice_process --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "cds": {
+    "requires": {
+      "db": "hana",
+      "auth": "dummy",
+      "nvidia_open_ai": {
+      "kind": "rest",
+      "credentials": {
+        "destination": "nvidia_open_ai"
+                    }
+                        }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
+    "sql": {
+      "native_hana_associations": false
+    }
+  },
+  "served": {
+    "options": {
+      "limits": {
+        "bodyParser": "50mb",
+        "fileSize": "50mb"
+      },
+      "timeout": 300000
+    }
+  }
+}

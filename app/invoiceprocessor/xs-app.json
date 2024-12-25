@@ -1,0 +1,36 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/invoice_process-srv/(.*)$",
+      "target": "/invoice_process-srv/$1",
+      "destination": "invoice_process-srv-api",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/odata/v4/InvoiceService/(.*)$",
+      "target": "/invoice_process-srv/$1",
+      "destination": "nvidia_open_ai",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}
